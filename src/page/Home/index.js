@@ -6,7 +6,7 @@ import "./home.css";
 export default function Home() {
   const navigate = useNavigate();
   const [bulletin, setBulletin] = useState([
-    { type: "text", content: "Ghosts Alerts." },
+    { type: "text", content: "γράφω τὸν νόμον σου." },
     { type: "text", content: "Stay sharp, stay free." },
   ]);
   const [editing, setEditing] = useState(false);
@@ -35,14 +35,16 @@ export default function Home() {
 
       ctx.fillStyle = "#9d4edd";
       ctx.font = `${fontSize}px monospace`;
-      for (let i = 0; i < columns; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        drops[i]++;
-        if (drops[i] * fontSize > c.height && Math.random() > 0.975) {
+
+      drops.forEach((y, i) => {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, y * fontSize);
+
+        if (y * fontSize > c.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-      }
+        drops[i]++;
+      });
     };
 
     const id = setInterval(draw, 50);
@@ -51,6 +53,11 @@ export default function Home() {
       window.removeEventListener("resize", resize);
     };
   }, []);
+
+  const handleRedPill = () => {
+    const elem = document.getElementById("matrix");
+    if (elem.requestFullscreen) elem.requestFullscreen();
+  };
 
   const addEntry = () => {
     if (newEntry.trim()) {
@@ -66,20 +73,27 @@ export default function Home() {
 
       {/* Hero Section */}
       <div className="hero">
-        <h1 className="ghostship-title">The A's GhostShip</h1>
+        <h1 className="ghostship-title">Navis populi mei</h1>
         <p className="ghostship-quote">
-          "Storms may rage around us,
-           but we are the storm incarnate.
-          Invisible to some, unstoppable to all,
-          we write our legacy in the night." – Kacee J
+          "True freedom awakens when you stop seeking permission to exist as yourself.The world bends not for the timid, but for those who stand unbroken, and the fiercest triumphs are often whispered in silence." – Kacee J
         </p>
+
+        {/* Pills */}
+        <div className="pill-choices">
+          <button className="pill blue" onClick={() => navigate("/terminal")}>
+            💊 Blue Pill
+          </button>
+          <button className="pill red" onClick={handleRedPill}>
+            💊 Red Pill
+          </button>
+        </div>
       </div>
 
-      {/* Video Section */}
+      {/* Video */}
       <section className="video-section">
         <iframe
-          title="KaceeJ Short"
-          src="https://www.youtube.com/embed/sdZMJfmwIY8?autoplay=1&mute=1"
+          title="Creators Chanel"
+          src="https://www.youtube.com/embed/sdZMJfmwIY8?autoplay=1&mute=1&playsinline=1"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
         />
@@ -88,7 +102,7 @@ export default function Home() {
       {/* Scrollable Bulletin */}
       <section className="panel bulletin">
         <div className="bulletin-header">
-          <h2 className="panel-title">Bulletin</h2>
+          <h2 className="panel-title">Updates4Gh👻sts</h2>
           <button className="edit-btn" onClick={() => setEditing(!editing)}>
             {editing ? "Cancel" : "Edit"}
           </button>
@@ -104,17 +118,15 @@ export default function Home() {
 
         {editing && (
           <div className="bulletin-editor">
-            <input
-              type="text"
+            <textarea
               value={newEntry}
               onChange={(e) => setNewEntry(e.target.value)}
-              placeholder="Add new bulletin entry"
+              placeholder="👻write..."
             />
-            <button onClick={addEntry}>Add</button>
+            <button onClick={addEntry}>Post</button>
           </div>
         )}
       </section>
     </div>
   );
 }
-

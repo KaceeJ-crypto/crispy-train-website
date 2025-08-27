@@ -1,127 +1,166 @@
-/* src/page/Home/home.css */
-
-.home-wrap {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow-x: hidden;
-  color: white;
-  font-family: 'Arial', sans-serif;
-}
-
-/* Matrix background */
+/* Make canvas background full */
 #matrix {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   z-index: -1;
 }
 
-/* Hero title */
+/* Keep hero title high */
 .hero {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .ghostship-title {
-  font-size: 5rem;
-  font-family: 'Cursive', sans-serif;
-  color: #9d4edd;
+  font-family: "Brush Script MT", cursive;
+  font-size: 4rem;
+  color: #a855f7;
+  text-shadow: 0 0 25px #c77dff, 0 0 50px #7b2cbf;
   margin: 0;
 }
 
 .ghostship-quote {
-  font-size: 1.5rem;
-  color: #fff;
-  margin-top: 10px;
+  font-size: 1.4rem;
+  margin: 12px 0 24px;
+  color: #e0e0ff;
+  font-style: italic;
 }
 
-/* Video Section */
+/* Pills */
+.pill-choices {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pill {
+  font-size: 1.2rem;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.pill:hover {
+  transform: scale(1.08);
+}
+
+.pill.blue {
+  background: linear-gradient(145deg, #0077ff, #00d4ff);
+  box-shadow: 0 0 15px #00d4ff;
+}
+
+.pill.red {
+  background: linear-gradient(145deg, #ff0033, #ff1a75);
+  box-shadow: 0 0 15px #ff0033;
+}
+
+/* Video */
 .video-section {
   display: flex;
   justify-content: center;
-  margin: 40px 0;
+  margin: 30px auto;
+  max-width: 800px;
+  border: 2px solid #a855f7;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 25px #a855f7;
 }
 
 .video-section iframe {
-  width: 80vw;
-  height: 45vw; /* 16:9 aspect ratio */
-  max-width: 1200px;
-  max-height: 675px;
+  width: 100%;
+  height: 400px;
   border: none;
-  border-radius: 10px;
 }
 
-/* Bulletin */
+/* Big semi-transparent bulletin */
 .bulletin {
-  width: 90%;
-  max-width: 900px;
-  margin: 20px auto;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 15px;
-  border-radius: 10px;
-  overflow-y: auto;
-}
-
-.bulletin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin: 40px auto;
+  max-width: 90%;
+  min-height: 400px;
+  background: rgba(20, 20, 20, 0.3); /* 30% opacity */
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 35px #a855f7;
+  text-align: center;
 }
 
 .panel-title {
   font-size: 2rem;
-  color: #9d4edd;
+  color: #ffb3ff;
+  margin-bottom: 20px;
 }
 
-.edit-btn {
-  background: #0070ba;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
+.panel-content {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #fff;
 }
 
-.edit-btn:hover {
-  background: #003087;
-}
-
-.bulletin-feed {
-  margin-top: 10px;
-}
-
-.bulletin-item {
-  margin: 5px 0;
-  font-size: 1.2rem;
-}
-
-.bulletin-editor {
+/* Home Page Styles */
+.home-container {
   display: flex;
-  margin-top: 10px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  min-height: 100vh;
 }
 
-.bulletin-editor input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 5px;
-  border: none;
-  margin-right: 5px;
+/* Big Hero Title */
+.home-title {
+  font-size: 3rem;
+  color: #c77dff;
+  text-shadow: 0 0 14px #ff00ff, 0 0 28px #00ff99;
+  margin-bottom: 20px;
+  font-family: 'Orbitron', sans-serif;
 }
 
-.bulletin-editor button {
-  padding: 8px 16px;
-  border-radius: 5px;
-  border: none;
-  background: #9d4edd;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+/* Quote Section */
+.home-quote {
+  font-size: 1.3rem;
+  max-width: 900px;
+  color: #e0e0e0;
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
-.bulletin-editor button:hover {
-  background: #7a2ebf;
+/* Video Wrapper */
+.home-video {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
 }
+
+
+/* Bulletin Section */
+.home-bulletin {
+  margin-top: 40px;
+  max-width: 900px;
+  text-align: left;
+  padding: 20px;
+  border-left: 4px solid #c77dff;
+  background: rgba(199, 125, 255, 0.08);
+  border-radius: 10px;
+}
+
+.home-bulletin h2 {
+  font-size: 1.8rem;
+  color: #c77dff;
+  margin-bottom: 12px;
+}
+
+.home-bulletin p {
+  font-size: 1.1rem;
+  color: #ddd;
+  line-height: 1.7;
+}
+
+
+
+

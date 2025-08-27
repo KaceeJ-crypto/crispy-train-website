@@ -1,0 +1,186 @@
+/* Container */
+.videohub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  background-color: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Dashboard panel (global keys & metadata) */
+.dashboard-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.dashboard-panel h3 {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.dashboard-panel label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.dashboard-panel input,
+.dashboard-panel textarea {
+  width: 250px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #111;
+  color: #fff;
+}
+
+/* Servers Grid */
+.servers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Individual server panel */
+.server-panel {
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.server-panel h2 {
+  margin: 0 0 10px 0;
+}
+
+/* Inputs and buttons */
+.server-panel input[type="text"],
+.server-panel input[type="range"],
+.server-panel input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #111;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.server-panel button {
+  padding: 12px;
+  font-size: 1rem;
+  margin: 5px 0;
+  border-radius: 6px;
+  border: none;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.server-panel button:hover {
+  background-color: #666;
+}
+
+/* Controls Grid (zoom & stabilize) */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.controls label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.controls input[type="range"] {
+  width: 100%;
+}
+
+/* Preview image */
+.preview {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.preview img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #555;
+}
+
+/* Local feed & recording controls */
+.recording-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.feed-controls {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feed-controls video {
+  width: 100%;
+  border-radius: 6px;
+  background-color: #000;
+}
+
+/* Local actions buttons */
+.local-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.local-actions button {
+  flex: 1 1 45%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* Canvas for combined feed */
+.feed-canvas {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #000;
+  height: 480px;
+}
+
+/* Logs panel */
+.log-panel {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.logs {
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 5px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #111;
+}
+
+.logs p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+}

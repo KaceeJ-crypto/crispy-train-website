@@ -8,6 +8,7 @@ import VideoChatPage from "./page/videochatpage";
 import ResourcesPage from "./page/resourcespage";
 import GhostNetPage from "./page/ghostnetpage";
 import TerminalPage from "./page/Terminal";
+import VideoHub from "./page/videohub";
 
 // CSS
 import "./App.css";
@@ -22,8 +23,8 @@ export default function App() {
 
         {/* Top Header */}
         <header className="topbar">
-          <h1 className="neon-title">GhostShip Atlanta</h1>
-          <p className="neon-subtitle">Kacee J Bulletin</p>
+          <h1 className="neon-title">GhostShip Over Atlanta</h1>
+          <p className="neon-subtitle">Ghosts Heartbeat</p>
           <nav className="nav">
             <NavLink to="/" end>Home</NavLink>
             <NavLink to="/map">Map</NavLink>
@@ -31,6 +32,7 @@ export default function App() {
             <NavLink to="/resources">Resources</NavLink>
             <NavLink to="/ghostnet">GhostNet</NavLink>
             <NavLink to="/terminal">Terminal</NavLink>
+            <NavLink to="/video">Video</NavLink>
           </nav>
         </header>
 
@@ -43,7 +45,8 @@ export default function App() {
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/ghostnet" element={<GhostNetPage />} />
             <Route path="/terminal" element={<TerminalPage />} />
-          </Routes>
+            <Route path="/video" element={<VideoHub />} /> 
+         </Routes>
         </main>
 
         {/* PayPal Donation Button */}

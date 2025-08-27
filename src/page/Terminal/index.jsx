@@ -1,11 +1,10 @@
 // src/page/Terminal/index.jsx
 import React, { useState } from "react";
-import "./terminal.css";
 
 const commands = {
   help: "List of available commands. Type 'help' to see all commands.",
   ls: "home  mappage  videochat  resources  ghostnet",
-  whoami: "Kacee J - VP of Sacred Space Foundation, trans rights advocate, survivor.",
+  whoami: "Kacee J - A Leader and former Vice President of Sacred Space Foundation, trans rights advocate, survivor.",
   date: () => new Date().toLocaleDateString(),
   time: () => new Date().toLocaleTimeString(),
   autobio: `

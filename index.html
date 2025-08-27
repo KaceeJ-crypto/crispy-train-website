@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VideoHub Dashboard</title>
+  <style>
+    body { background: #111; color: #eee; font-family: sans-serif; }
+    .dashboard { display: flex; flex-wrap: wrap; gap: 10px; }
+    .video-box {
+      position: relative;
+      width: 48%;
+      aspect-ratio: 16/9;
+      background: black;
+    }
+    video { width: 100%; height: 100%; background: black; }
+    .controls { margin-top: 20px; }
+    input, select, button { margin: 5px; padding: 5px; }
+  </style>
+</head>
+<body>
+  <h2>VideoHub Dashboard</h2>
+
+  <div class="dashboard">
+    <div class="video-box"><video id="server1Video" autoplay muted></video></div>
+    <div class="video-box"><video id="server2Video" autoplay muted></video></div>
+    <div class="video-box"><video id="server3Video" autoplay muted></video></div>
+    <div class="video-box"><video id="server4Video" autoplay muted></video></div>
+  </div>
+
+  <div class="controls">
+    <h3>Configure / Switch Feeds</h3>
+    <input id="feedInput" placeholder="Feed URL / device"/>
+    <input id="keyInput" placeholder="Twitch Stream Key"/>
+    <select id="serverSelect">
+      <option value="server1">Server1</option>
+      <option value="server2">Server2</option>
+      <option value="server3">Server3</option>
+      <option value="server4">Server4</option>
+    </select>
+    <button id="setConfig">Save Config</button>
+    <button id="startStream">Start Stream</button>
+    <button id="switchFeed">Switch Feed</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const serverVideos = {
+      server1: document.getElementById("server1Video"),
+      server2: document.getElementById("server2Video"),
+      server3: document.getElementById("server3Video"),
+      server4: document.getElementById("server4Video"),
+    };
+
+    // Update previews dynamically (media servers should push HLS/MJPEG URLs)
+    socket.on("updatePreview", ({ serverName, previewUrl }) => {
+      if (serverVideos[serverName]) serverVideos[serverName].src = previewUrl;
+    });
+
+    // Buttons
+    document.getElementById("setConfig").onclick = async () => {
+      const feedUrl = document.getElementById("feedInput").value;
+      const streamKey = document.getElementById("keyInput").value;
+      const serverName = document.getElementById("serverSelect").value;
+
+      await fetch("/set-config", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ serverName, feedUrl, streamKey })
+      });
+      alert("Config saved!");
+    };
+
+    document.getElementById("startStream").onclick = async () => {
+      const serverName = document.getElementById("serverSelect").value;
+      await fetch("/start-stream", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ serverName })
+      });
+      alert("Start command sent!");
+    };
+
+    document.getElementById("switchFeed").onclick = async () => {
+      const feedUrl = document.getElementById("feedInput").value;
+      const streamKey = document.getElementById("keyInput").value;
+      const serverName = document.getElementById("serverSelect").value;
+
+      await fetch("/switch-feed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ serverName, feedUrl, streamKey })
+      });
+      alert(`Switch command sent to ${serverName}`);
+    };
+  </script>
+</body>
+</html>
