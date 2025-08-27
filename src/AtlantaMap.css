@@ -1,0 +1,10 @@
+.map-page {
+  width: 90%;
+  max-width: 1400px;
+  height: 80vh;
+  margin: 50px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1; /* above matrix */
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+}

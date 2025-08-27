@@ -1,0 +1,61 @@
+/* src/page/ResourcesPage.css */
+
+body {
+  margin: 0;
+  font-family: "Courier New", monospace;
+  background: black;
+  color: #00ff00;
+}
+
+.matrix-bg {
+  min-height: 100vh;
+  padding: 20px;
+  background: black;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  display: block;
+  margin: 0 auto 30px auto;
+  padding: 10px;
+  width: 80%;
+  max-width: 500px;
+  border: 1px solid #00ff00;
+  background: black;
+  color: #00ff00;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: #00ff00;
+  margin-bottom: 10px;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.resource-item {
+  margin: 10px 0;
+}
+
+.resource-item a {
+  color: #00ff00;
+  text-decoration: none;
+}
+
+.resource-item a:hover {
+  text-shadow: 0 0 10px #00ff00;
+}

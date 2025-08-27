@@ -1,0 +1,127 @@
+/* src/page/Home/home.css */
+
+.home-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Matrix background */
+#matrix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Hero title */
+.hero {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.ghostship-title {
+  font-size: 5rem;
+  font-family: 'Cursive', sans-serif;
+  color: #9d4edd;
+  margin: 0;
+}
+
+.ghostship-quote {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-top: 10px;
+}
+
+/* Video Section */
+.video-section {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.video-section iframe {
+  width: 80vw;
+  height: 45vw; /* 16:9 aspect ratio */
+  max-width: 1200px;
+  max-height: 675px;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Bulletin */
+.bulletin {
+  width: 90%;
+  max-width: 900px;
+  margin: 20px auto;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  overflow-y: auto;
+}
+
+.bulletin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title {
+  font-size: 2rem;
+  color: #9d4edd;
+}
+
+.edit-btn {
+  background: #0070ba;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #003087;
+}
+
+.bulletin-feed {
+  margin-top: 10px;
+}
+
+.bulletin-item {
+  margin: 5px 0;
+  font-size: 1.2rem;
+}
+
+.bulletin-editor {
+  display: flex;
+  margin-top: 10px;
+}
+
+.bulletin-editor input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 5px;
+}
+
+.bulletin-editor button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  background: #9d4edd;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bulletin-editor button:hover {
+  background: #7a2ebf;
+}

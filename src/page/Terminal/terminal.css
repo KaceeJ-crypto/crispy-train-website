@@ -1,0 +1,29 @@
+.terminal-container {
+  background: black;
+  color: limegreen;
+  font-family: monospace;
+  padding: 20px;
+  height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.terminal-input {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-input input {
+  flex: 1;
+  background: black;
+  color: limegreen;
+  border: none;
+  outline: none;
+  font-family: monospace;
+}

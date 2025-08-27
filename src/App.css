@@ -1,0 +1,132 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  font-family: 'Courier New', monospace;
+  background: black;
+  color: #00ff99;
+  overflow-x: hidden;
+}
+
+/* Matrix Rain Canvas */
+#matrix-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: black;
+}
+
+/* Main container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  text-align: center;
+}
+
+/* Title + Quote */
+.app-title {
+  font-size: 2.5rem;
+  font-family: 'Orbitron', sans-serif;
+  color: #c77dff;
+  margin-bottom: 10px;
+  text-shadow: 0 0 12px #ff00ff, 0 0 24px #ff00ff;
+}
+
+.app-quote {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+
+/* Menu Buttons */
+.menu-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.menu-button {
+  padding: 14px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  background: rgba(0, 255, 153, 0.15);
+  border: 2px solid #00ff99;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #00ff99;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 12px #00ff99, inset 0 0 6px #00ff99;
+}
+
+.menu-button:hover {
+  background: rgba(0, 255, 153, 0.4);
+  transform: scale(1.1);
+}
+
+/* Video Section */
+.video-wrapper {
+  max-width: 90%;
+  margin: 20px auto;
+}
+
+.video-wrapper video,
+.video-wrapper img {
+  width: 100%;
+  max-width: 700px;
+  border: 3px solid #ff00ff;
+  border-radius: 16px;
+  box-shadow: 0 0 18px #ff00ff, 0 0 36px #00ff99;
+}
+
+/* Bulletin */
+.bulletin {
+  margin-top: 40px;
+  text-align: left;
+  max-width: 800px;
+  padding: 20px;
+  border-left: 3px solid #c77dff;
+}
+
+.bulletin h2 {
+  font-size: 1.5rem;
+  color: #c77dff;
+  margin-bottom: 10px;
+}
+
+.bulletin p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+
+
+/* MirrorTalk / Video Call Section */
+.mirror-video {
+  width: 90vw;        /* almost full width of viewport */
+  height: 60vh;       /* tall height for bigger view */
+  max-width: 1400px;  /* limit max size */
+  max-height: 900px;  /* limit max height */
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(157, 78, 221, 0.8);
+}
+
+
