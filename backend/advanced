@@ -1,0 +1,174 @@
+// GhostNet2 Backend - Consolidated
+
+import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
+import fs from 'fs';
+import path from 'path';
+import vm from 'vm';
+import { exec } from 'child_process';
+
+// ---------------- EXPRESS + SOCKET.IO ----------------
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"] } });
+app.use(express.json());
+
+// ---------------- GHOST SHIP STATE ----------------
+const ghostShip = {
+  vpn: { status: 'disconnected', chain: [], availableVpns: [
+    { id: 'us-east', name: 'USA (East)', location: 'New York' },
+    { id: 'eu-west', name: 'Europe (West)', location: 'London' },
+    { id: 'as-se', name: 'Asia (SE)', location: 'Singapore' }
+  ]},
+  tor: { status: 'disconnected', circuit: [] },
+  dnscrypt: { status: 'disabled', resolver: 'Cloudflare' },
+  firewall: { status: 'inactive', rules: [], filteredTraffic: 0 },
+  threats: 0,
+  telemetry: { nodes: [] },
+  logs: []
+};
+
+// ---------------- TELEMETRY ----------------
+function pushLog(msg) {
+  const timestamp = new Date().toLocaleTimeString();
+  ghostShip.logs.push(`[${timestamp}] ${msg}`);
+  updateTelemetry();
+}
+
+function updateTelemetry() {
+  io.emit('telemetryUpdate', ghostShip);
+}
+
+// ---------------- BOT SANDBOX ----------------
+const botFolder = path.join(process.cwd(), 'bots');
+fs.mkdirSync(botFolder, { recursive: true });
+
+function runBotCode(code, context = {}) {
+  const sandbox = { ...context, console };
+  const vmContext = vm.createContext(sandbox);
+  try { return new vm.Script(code).runInContext(vmContext, { timeout: 2000 }); }
+  catch (err) { pushLog(`Bot Error: ${err.message}`); return null; }
+}
+
+function loadBots() {
+  const botFiles = fs.readdirSync(botFolder).filter(f => f.endsWith('.js'));
+  return botFiles.map(f => ({ name: f, code: fs.readFileSync(path.join(botFolder, f), 'utf-8') }));
+}
+
+function runAllBots(context = {}) {
+  const bots = loadBots();
+  if (!bots.length) { pushLog('No bots found to execute.'); return; }
+  bots.forEach(bot => {
+    pushLog(`Executing bot: ${bot.name}`);
+    runBotCode(bot.code, context);
+  });
+}
+
+// ---------------- SYSTEM COMMANDS ----------------
+function runSystemCommand(cmd, successMsg, errorMsg) {
+  exec(cmd, (err, stdout, stderr) => {
+    if (err) pushLog(`${errorMsg}: ${stderr}`);
+    else pushLog(successMsg);
+    updateTelemetry();
+  });
+}
+
+// ---------------- SOCKET.IO ----------------
+io.on('connection', (socket) => {
+  console.log('Frontend connected to GhostNet2');
+  updateTelemetry();
+
+  socket.on('command', ({ type, payload }) => {
+    pushLog(`Command received: ${type}`);
+
+    switch(type) {
+      // VPN / TOR / DNSCrypt
+      case 'CONNECT_VPN':
+        runSystemCommand('openvpn --config myvpn.conf', '🔐 VPN connected', '❌ VPN failed');
+        ghostShip.vpn.status = 'connected';
+        break;
+      case 'DISCONNECT_VPN':
+        runSystemCommand('killall openvpn', '🔌 VPN disconnected', '⚠️ VPN disconnect failed');
+        ghostShip.vpn.status = 'disconnected';
+        break;
+      case 'START_TOR':
+        runSystemCommand('tor &', '🕸️ Tor started', '❌ Tor failed');
+        ghostShip.tor.status = 'connected';
+        break;
+      case 'STOP_TOR':
+        runSystemCommand('killall tor', '🛑 Tor stopped', '⚠️ Tor stop failed');
+        ghostShip.tor.status = 'disconnected';
+        break;
+      case 'START_DNSCRYPT':
+        runSystemCommand('dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml &', '🛡️ DNSCrypt started', '❌ DNSCrypt failed');
+        ghostShip.dnscrypt.status = 'enabled';
+        break;
+      case 'STOP_DNSCRYPT':
+        runSystemCommand('killall dnscrypt-proxy', '🛑 DNSCrypt stopped', '⚠️ DNSCrypt stop failed');
+        ghostShip.dnscrypt.status = 'disabled';
+        break;
+
+      // Node / Bot Management
+      case 'ADD_NODE':
+        const newNodeId = `NODE-${Math.floor(Math.random()*9000+1000)}`;
+        ghostShip.telemetry.nodes.push({
+          id: newNodeId,
+          name: payload?.name || newNodeId,
+          type: payload?.type || 'generic',
+          status: payload?.type === 'bot' ? 'idle' : 'online',
+          position: [
+            Math.random()*10-5, Math.random()*10-5, Math.random()*10-5
+          ]
+        });
+        pushLog(`Node added: ${newNodeId}`);
+        break;
+
+      case 'REMOVE_NODE':
+        const lastBotIndex = ghostShip.telemetry.nodes.map(n => n.type).lastIndexOf('bot');
+        if (lastBotIndex >= 0) {
+          const removed = ghostShip.telemetry.nodes.splice(lastBotIndex, 1)[0];
+          pushLog(`Bot node removed: ${removed.name}`);
+        } else if (ghostShip.telemetry.nodes.length) {
+          const removed = ghostShip.telemetry.nodes.pop();
+          pushLog(`Node removed: ${removed.name}`);
+        }
+        break;
+
+      case 'RUN_BOTS':
+        ghostShip.telemetry.nodes.forEach(n => { if (n.type === 'bot') n.status='running'; });
+        pushLog('All bots running');
+        runAllBots({ io, ghostShip });
+        break;
+
+      case 'DETECT_THREAT':
+        if (ghostShip.telemetry.nodes.length) {
+          const idx = Math.floor(Math.random()*ghostShip.telemetry.nodes.length);
+          ghostShip.telemetry.nodes[idx].status='threatened';
+          ghostShip.threats++;
+          pushLog(`Threat detected on ${ghostShip.telemetry.nodes[idx].name}`);
+        }
+        break;
+
+      case 'PURGE_LOGS':
+        ghostShip.logs = [];
+        pushLog('Logs cleared.');
+        break;
+
+      default:
+        pushLog(`Unknown command: ${type}`);
+    }
+
+    updateTelemetry();
+  });
+
+  socket.on('disconnect', () => console.log('Frontend disconnected'));
+});
+
+// ---------------- EXPRESS ENDPOINTS ----------------
+app.get('/status', (req,res) => res.json({ status: 'GhostNet2 Backend online' }));
+app.post('/run-bots', (req,res) => { runAllBots({ io, ghostShip }); res.send({ status: 'All bots executed' }); });
+
+// ---------------- START SERVER ----------------
+const PORT = 4001;
+server.listen(PORT, () => console.log(`GhostNet2 Backend running on port ${PORT}`));
