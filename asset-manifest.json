@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/crispy-train-website/static/css/main.b1013064.css",
+    "main.js": "/crispy-train-website/static/js/main.83f209ad.js",
+    "static/js/453.54292a4b.chunk.js": "/crispy-train-website/static/js/453.54292a4b.chunk.js",
+    "index.html": "/crispy-train-website/index.html",
+    "main.b1013064.css.map": "/crispy-train-website/static/css/main.b1013064.css.map",
+    "main.83f209ad.js.map": "/crispy-train-website/static/js/main.83f209ad.js.map",
+    "453.54292a4b.chunk.js.map": "/crispy-train-website/static/js/453.54292a4b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b1013064.css",
+    "static/js/main.83f209ad.js"
+  ]
+}
